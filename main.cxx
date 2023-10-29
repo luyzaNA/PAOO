@@ -15,11 +15,11 @@ int main(int argc, char* argv[]) {
     house1.print();
 
 
-    House* house2= new House("str Bicazm mr 31", 1, 2100.0,1);
+    House* house2= new House("str Bicazm mr 31", 1, 21000.0,1);
     house2->print();
     House* house;
     house=house2;
-    house->updateParkingSpace(3);
+    house->updatePrice(25000.0);
     house2->print();
 
     delete house2;

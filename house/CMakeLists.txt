@@ -1,1 +1,1 @@
-add_library(house house.cpp)
+add_library(house STATIC house.cpp)

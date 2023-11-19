@@ -1,34 +1,46 @@
 #include <iostream>
 #include <cstring>
 #include "Residence/residence.h"
+#include "House/house.h"
+#include "Apartament/apartament.h"
+#include "StudioApartament/studioApartament.h"
 
 int main(int argc, char* argv[]) {
 
-    //normal constructor
-    Residence house1("str Principala, nr 51", 2, 51000.0, 2);
-    house1.print();
-    
+    House house("str Bega nr 13", 2, 10000, 1, true);
+    house.print();
 
-    //copy constructor
-    Residence copyHouse = house1;
-    copyHouse.updateParkingSpace(4);
-    house1.print();
+    House house3 = house;
+    house.updatePrice(53535);
 
-
-    Residence* house2= new Residence("str Bicazm mr 31", 1, 21000.0,1);
-    house2->print();
-    Residence* house;
-    house=house2;
-    house->updatePrice(25000.0);
-    house2->print();
-
-    delete house2;
-    house2->print();
- 
-    //move constructor
-    Residence house3(std::move(house1));
-    house1.print();
+    house.print();
     house3.print();
 
+    Apartament ap("str Cometei nr 3", 2,121212,1,"Ionela");
+    Apartament ap2;
+
+    ap.print();
+    ap2.print();
+
+    ap2=ap;
+    ap2.print();
+
+    Apartament ap3("str Luna NR 4", 2,134254,1,"Andreea");
+    ap3.print();
+    ap3=std::move(ap);
+    ap.print();
+    ap3.print();
+
+    ap3.updatePrice(2000);
+    ap3.setPropertyManager("karina");
+    ap3.print();
+    
+    studio::StudioApartament studioApartament("Strada Z", 1, 80000.0, 0, "Alex Johnson");
+    studioApartament.print();
+    studioApartament.setPropertyManager("Mari");
+    studioApartament.print();
+
+
+    return 0;
 
 }

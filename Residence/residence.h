@@ -1,27 +1,11 @@
 #pragma once
 
 class Residence{
-    private:
-        char* address;
-        int roomsNumber;
-        double price;
-        int parkingSpaceNumber;
-
     public:
-        Residence();
-
-        Residence(const char* address, int roomsNumber, double price, int parkingSpaceNumber);
        
-        Residence(const Residence& house);
-       
-        Residence(Residence&& house);
-       
-        ~Residence();
+        virtual ~Residence(){}
 
-        void print();
+        virtual void print() const = 0;
 
-        void updatePrice(double newPrice);
-
-        void updateParkingSpace(int newParkingSpace);
-
+        virtual void updatePrice(double newPrice) = 0;
 };

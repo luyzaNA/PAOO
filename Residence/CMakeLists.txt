@@ -1,0 +1,1 @@
+add_library(ResidenceLibrary STATIC residence.cpp)

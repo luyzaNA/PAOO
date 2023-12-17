@@ -30,6 +30,6 @@ class House : public Residence{
         void updatePrice(double newPrice) override;
         void enter(const char* person) ;
         void leave(const char* person) ;
-        void setRenovationTeam(const std::shared_ptr<RenovationTeam>& owner);
+        void setRenovationTeam(const std::shared_ptr<RenovationTeam>& team);
 
 };

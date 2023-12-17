@@ -2,45 +2,41 @@
 #include <cstring>
 #include "Residence/residence.h"
 #include "House/house.h"
-#include "Apartament/apartament.h"
-#include "StudioApartament/studioApartament.h"
+#include "renovationTeam/renovationTeam.h"
+#include <thread>
 
 int main(int argc, char* argv[]) {
 
     House house("str Bega nr 13", 2, 10000, 1, true);
-    house.print();
-
-    House house3 = house;
-    house.updatePrice(53535);
-
-    house.print();
-    house3.print();
-
-    Apartament ap("str Cometei nr 3", 2,121212,1,"Ionela");
-    Apartament ap2;
-
-    ap.print();
-    ap2.print();
-
-    ap2=ap;
-    ap2.print();
-
-    Apartament ap3("str Luna NR 4", 2,134254,1,"Andreea");
-    ap3.print();
-    ap3=std::move(ap);
-    ap.print();
-    ap3.print();
-
-    ap3.updatePrice(2000);
-    ap3.setPropertyManager("karina");
-    ap3.print();
+    std::thread person1enter([&house]() { 
+        house.enter("Person 1"); 
+    });
     
-    studio::StudioApartament studioApartament("Strada Z", 1, 80000.0, 0, "Alex Johnson");
-    studioApartament.print();
-    studioApartament.setPropertyManager("Mari");
-    studioApartament.print();
+    std::thread person2enter([&house]() { 
+        house.enter("Person 2");
+    });
 
+    std::thread person2leave([&house]() {
+         house.leave("Person 2"); 
+    });
 
+    person1enter.join();
+    person2enter.join();
+    person2leave.join();
+
+    // Afisează informații despre casă
+    house.print();
+
+    std::shared_ptr<House> house2 = std::make_shared<House>("str Timis nr 32", 3, 20000, 0, false);
+    std::shared_ptr<RenovationTeam> renovationTeam = std::make_shared<RenovationTeam>("example team");
+
+    std::weak_ptr<RenovationTeam> weakRenovationTeam= renovationTeam;
+
+    if (auto sharedRenovationTeam = weakRenovationTeam.lock()) {
+        sharedRenovationTeam->setHouse(house2);
+    }
+
+    house2->setRenovationTeam(renovationTeam);
     return 0;
 
 }

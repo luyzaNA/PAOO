@@ -1,0 +1,5 @@
+add_library(RenovationLibrary STATIC renovationTeam.h renovationTeam.cxx)  
+
+target_include_directories(RenovationLibrary PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+
+target_link_libraries(RenovationLibrary PUBLIC HouseLibrary)

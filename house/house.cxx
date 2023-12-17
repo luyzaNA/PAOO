@@ -1,8 +1,11 @@
 #include <codecvt>
 #include <iostream>
+#include <thread>
 #include "house.h"
 
 using namespace std;
+std::mutex personMutex;  
+int numPersons;
 
 House::House() : address(nullptr), roomsNumber(0), price(0.0), parkingSpaceNumber(0), hasPool(false) {
     cout<< "House constructor - DEFAULT" <<endl;
@@ -57,4 +60,33 @@ void House::updatePrice(double newPrice) {
     } else {
         price = newPrice;
     }
+}
+
+void House::enter(const char* person) {
+        std::lock_guard<std::mutex> lock(personMutex);
+
+        int totalPersons = numPersons + 1;
+        while (numPersons < totalPersons && numPersons < 10) {
+            std::cout << person << " entered . Number of persons: " << numPersons << std::endl;
+            numPersons++;
+            std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        }
+
+        std::cout << "Current number of persons: " << numPersons << std::endl;
+}
+
+void House::leave(const char* person) {
+    std::lock_guard<std::mutex> lock(personMutex);
+
+    if (numPersons > 0) {
+        numPersons--;             
+        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        std::cout << person << " left. Number of persons: " << numPersons << std::endl;
+    } else {
+        std::cout << person << " tried to leave, but no persons inside." << std::endl;
+    }
+}
+
+void House::setRenovationTeam(const std::shared_ptr<RenovationTeam>& team) {
+    renovation = team;
 }

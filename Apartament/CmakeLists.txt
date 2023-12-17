@@ -1,3 +1,0 @@
-add_library(ApartamentLibrary STATIC apartament.cxx)  
-
-target_include_directories(ApartamentLibrary PUBLIC "${PROJECT_SOURCE_DIR}/Residence")

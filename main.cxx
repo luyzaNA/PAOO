@@ -30,13 +30,13 @@ int main(int argc, char* argv[]) {
     std::shared_ptr<House> house2 = std::make_shared<House>("str Timis nr 32", 3, 20000, 0, false);
     std::shared_ptr<RenovationTeam> renovationTeam = std::make_shared<RenovationTeam>("example team");
 
-    std::weak_ptr<RenovationTeam> weakRenovationTeam= renovationTeam;
+    std::weak_ptr<House> weakHouse= house2;
 
-    if (auto sharedRenovationTeam = weakRenovationTeam.lock()) {
-        sharedRenovationTeam->setHouse(house2);
+    if (auto sharedHouse = weakHouse.lock()) {
+        sharedHouse->setRenovationTeam(renovationTeam);
     }
 
-    house2->setRenovationTeam(renovationTeam);
+    renovationTeam->setHouse(house2);
     return 0;
 
 }
